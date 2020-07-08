@@ -38,7 +38,7 @@ class FacebookAuthController extends Controller
             }
               Auth::login($user);
         }
-        return redirect('teacher/dashboard')->with('success', 'Successfully logged in!');
+        return redirect('/verifyrole')->with('success', 'Successfully logged in!');
     }
 }
 
