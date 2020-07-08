@@ -11,18 +11,44 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+   
 
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
+    
+    public function teacher(){
+
         return view('home');
     }
+
+    public function leacturer(){
+
+        return view('home');
+    }
+    
+    //this page return a page for the user to select his role
+    public function verifyrole(){
+         
+        //note you will set a form submitting post request to update role
+
+        return view('verifyrole');
+    }
+
+    public function updateRole(Request $request){
+         
+
+        $user = Auth::user();
+
+        $user->role = $request->role;
+
+        $user->save();
+
+        return redirect()->back();
+
+    }
+
+
 }
