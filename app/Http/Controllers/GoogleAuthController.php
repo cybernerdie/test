@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\User;
 use Socialite;
-class FacebookAuthController extends Controller
+class GoogleAuthController extends Controller
 {
      
 /**
@@ -20,25 +20,24 @@ class FacebookAuthController extends Controller
     }
 
     public function callback(){
-        $data = Socialite::driver('google')->user();
+        $data = Socialite::driver('google')->stateless()->user();
         $user = User::where('email', $data->email)->first();
         if($user){
 
           Auth::login($user);
-           
+          return redirect('/verify')->with('success', 'Successfully logged in!');
         }else{
-            $user = User::where('email', $data->email)->first();
-            if(!$user){
+
                            
-              $user = new User();
-              $user->name = $data->name;
-              $user->email = $data->email;
-              $user->password = uniqid(0,8);
-              $user->save();
-            }
+              $newuser = new User();
+              $newuser->name = $data->name;
+              $newuser->email = $data->email;
+              $newuser->password = uniqid(0,8);
+              $newuser->save();
+            
               Auth::login($user);
+        return redirect('/verify')->with('success', 'Successfully logged in!');
         }
-        return redirect('/verifyrole')->with('success', 'Successfully logged in!');
     }
 }
 

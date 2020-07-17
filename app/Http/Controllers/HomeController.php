@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use Session;
 
 class HomeController extends Controller
 {
@@ -19,14 +21,14 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     
-    public function teacher(){
+    public function student(){
 
-        return view('home');
+        return view('student/dashboard');
     }
 
-    public function leacturer(){
+    public function lecturer(){
 
-        return view('home');
+        return view('lecturer/dashboard');
     }
     
     //this page return a page for the user to select his role
@@ -34,21 +36,32 @@ class HomeController extends Controller
          
         //note you will set a form submitting post request to update role
 
-        return view('verifyrole');
+        return view('auth.verify');
     }
 
-    public function updateRole(Request $request){
+    public function updaterole(Request $request){
          
 
         $user = Auth::user();
+        $userRole = Auth::user()->role;
 
         $user->role = $request->role;
 
         $user->save();
 
-        return redirect()->back();
+        if($userRole=='student'){
+            return redirect ('/student/dashboard');
+        }
+        else{
+            return redirect('/lecturer/dashboard');
+        }
 
     }
 
+    public function logout() {
+        Session::flush();
+        Auth::logout();
+        return Redirect('/');
+    }
 
 }

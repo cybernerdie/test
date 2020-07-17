@@ -19,6 +19,9 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('facebook_id')->unique()->nullable();
             $table->string('role')->nullable();
+            $table->string('school')->nullable();
+            $table->string('department')->nullable();
+            $table->string('matric')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

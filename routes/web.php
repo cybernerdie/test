@@ -19,32 +19,20 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
-
-
-
-// Route::get('login/{provider}', 'SocialController@redirect');
-// Route::get('login/{provider}/callback','SocialController@Callback');
- 
-
 
 //register the /facebookcallback on developers.facebook.com
-Route::get('/redirect', 'FacebookAuthController@redirect');
-Route::get('/facebookcallback', 'FacebookAuthController@callback');
+Route::get('/redirect', 'FacebookAuthController@redirect')->name('facebookredirect');
+Route::get('/login/facebook/callback', 'FacebookAuthController@callback')->name('facebook');
 
 
 //register the /googlecallback on google console
-Route::get('/googleredirect', 'GoogleAuthController@redirect');
-Route::get('/googlecallback/{role}', 'GoogleAuthController@callback');
+Route::get('/googleredirect', 'GoogleAuthController@redirect')->name('googleredirect');
+Route::get('/login/google/callback', 'GoogleAuthController@callback')->name('google');
+
+Route::get('/verify', 'HomeController@verifyrole')->middleware('auth');
+Route::post('/updaterole', 'HomeController@updaterole')->middleware('auth')->name('verify');
 
 
-
-Route::get('/verifyrole', 'HomeController@verifyrole')->middleware('auth');
-
-Route::post('/storerole', 'HomeController@updateRole')->middleware('auth');
-
-
-Route::get('/teacher/dashboard', 'HomeController@teacher')->middleware(['auth', 'role', 'teacher']);
-
-Route::get('/lecturer/dashboard', 'HomeController@lecturer')->middleware(['auth', 'role', 'leacturer']);
-
+Route::get('/student/dashboard', 'HomeController@student')->middleware(['auth', 'role', 'student']);
+Route::get('/lecturer/dashboard', 'HomeController@lecturer')->middleware(['auth', 'role', 'lecturer']);
+Route::get('logout', 'HomeController@logout')->name('logout');

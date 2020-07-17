@@ -26,7 +26,7 @@ class Role
                 return $next($request); 
             }
             else{
-                return redirect('/verifyrole');
+                return redirect('/auth/verify');
             }
         }
 

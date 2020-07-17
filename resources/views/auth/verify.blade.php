@@ -1,28 +1,48 @@
-@extends('layouts.app')
-
+@extends('layouts.main')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Verify Your Email Address') }}</div>
-
-                <div class="card-body">
-                    @if (session('resent'))
-                        <div class="alert alert-success" role="alert">
-                            {{ __('A fresh verification link has been sent to your email address.') }}
-                        </div>
-                    @endif
-
-                    {{ __('Before proceeding, please check your email for a verification link.') }}
-                    {{ __('If you did not receive the email') }},
-                    <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
-                        @csrf
-                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
-                    </form>
-                </div>
-            </div>
+    <!--split 2 screen-->
+    <div class="parent-split">
+        <!--left-->
+        <div class="left-split">
+            <div class="left-text">Learn Anywhere, <br> Learn Everywhere</div>
+            <div class="float-img"> <img src="{{asset ('images/laptop.png')}}"/> </div>
         </div>
+        <!--right-->
+        <div class="right-split">
+
+
+ <!-- modal starts V2-->
+ <div class="auth-modal-container" id="create-account-div">
+    <div class="top-form-design">
+        <p class="side-word">Create an account</p>
     </div>
+
+    <!--Choose with option-->
+    <form class="form" name="contact" method="POST" data-netlify="true" action="{{ route('verify') }}" netlify>
+        @csrf
+        <div class="form-group-container">
+            <div class="question-box">
+                <div class="option-text">Select the option that best describes you.</div>
+                <!--select option-->
+                <div class="describe-cover">
+                <div class="describe-option">
+                    <input type="radio" name="role" value="student"/>
+                    <div>Student</div>
+                </div>
+                <div class="describe-option">
+                    <input type="radio" name="role" value="lecturer"/>
+                    <div>Lecturer</div>
+                </div>
+                </div>
+            </div>        
+        </div>
+        <!-- <div class="orange-color small-text forgot-password-text"><a href="#">Forgot Password?</a></div> -->
+        <button class="btn-auth orange-color-bg" id="" type="submit">Create Account</button>
+    </form>
+    
+
+<!-- modal ends -->
+</div>
+</div>
 </div>
 @endsection

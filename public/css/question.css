@@ -1,0 +1,58 @@
+body {
+    font-family: Arial;
+}
+
+.describe-option {
+    width: 45%;
+    height: 50px;
+    background-color: #BBBBBB;
+    display: flex;
+    font-size: 20px;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.describe-option input {
+    width: 20px;
+    height: 20px;
+    margin: 0px 10px;
+}
+
+.question-box {
+    background-color: #f5f5f5;
+    min-height: 200px;
+    margin-top: 50px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px #bbb;
+    font-family: Arial;
+}
+
+.option-text {
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
+    margin-bottom: 100px;
+}
+
+.describe-cover {
+    display: flex;
+    justify-content: space-between;
+}
+
+/*Media*/
+@media (max-width: 500px) {
+    .describe-cover {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    /*margin top for 2nd select*/
+    #create-account-div > div.question-box > div.describe-cover > div:nth-child(2) {
+        margin-top: 20px;
+    }
+
+    .describe-option {
+        width: 100%;
+    }
+}

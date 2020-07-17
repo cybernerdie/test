@@ -1,73 +1,65 @@
-@extends('layouts.app')
-
+@extends('layouts.main')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <!--split 2 screen-->
+    <div class="parent-split">
+        <!--left-->
+        <div class="left-split">
+            <div class="left-text">Learn Anywhere, <br> Learn Everywhere</div>
+            <div class="float-img"> <img src="{{asset ('images/laptop.png')}}"/> </div>
         </div>
+        <!--right-->
+        <div class="right-split">
+
+
+ <!-- modal starts V2-->
+ <div class="auth-modal-container" id="create-account-div">
+    <div class="top-form-design">
+        <p class="side-word">Login to your account</p>
     </div>
+
+    <!-- ALERT STARTS -->
+<!--DANGER-->
+<!--
+    <div class="alert alert-danger" role="alert">
+        Incorrect username and password
+     </div> -->
+    <!-- ALERT ENDS -->
+
+    <!-- login form starts -->
+    <form class="form" name="contact" method="POST" data-netlify="true" action="{{ route('login') }}" netlify>
+        @csrf
+        <div class="form-group-container">
+        <div class="form-group">
+                <label for="email" class="form-label signup-label-email">Email</label>
+          <div class="form-input">
+            <input name="email" type="email" class="form-input-signup create-acc-input form-control-input create-email" id="email">
+            <span id="create-acc-email-error-span"></span>
+          </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="form-label signup-label-password">Password</label>
+            <div class="form-input">
+                <input name="password" type="password" class="form-input-signup create-acc-input form-control-input create-password" id="password">
+                <span id="create-acc-password-error-span"></span>
+            </div>
+          </div>
+          <!--end-->
+        </div>
+        <!-- <div class="orange-color small-text forgot-password-text"><a href="#">Forgot Password?</a></div> -->
+        <button class="btn-auth orange-color-bg" id="" type="submit">Log in</button>
+    </form>
+    <!--Gmail and Facebook Login-->
+    <div class="external-auth-container">
+        <p class="or-divider">OR</p>
+      <!-- second login auth ends -->
+      <a href="{{ route('facebookredirect') }}" class="btn-fb"><img src="../images/facebook icon.svg" alt="FB"> Register with Facebook</a>
+      <a href="{{ route('googleredirect') }}" class="btn-google"><img src="../images/google icon.svg" alt="google">Register with Google</a>
+    
 </div>
+
+
+
+    </div>
+    </div>
+
 @endsection

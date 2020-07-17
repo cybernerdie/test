@@ -10,8 +10,8 @@
     <title>{{ config('app.name', 'UniversityX') }}</title>
 
     <!-- Scripts -->
+    <script src="{{ asset('js/signup.js') }}"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
    
 
     <!-- Fonts -->
@@ -21,12 +21,12 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/course-details.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/question.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/signup.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
 </head>
 <body>
-    @include('layouts.navbar')
-    @include('layouts.sidebar')
 
     <div class="content-wrapper">
 

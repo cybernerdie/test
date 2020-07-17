@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Auth;
 
-class Lecturer
+class Student
 {
     /**
      * Handle an incoming request.
@@ -20,13 +20,14 @@ class Lecturer
             return redirect('/login');
         }
         else{
-                $user = Auth::user()->role;
-                if($user=='lecturer'){
-                    return $next($request);
-                }
-                else{
-                    return redirect('/teacher/dashboard');
-                }
+
+            $user = Auth::user()->role;
+            if($user=='student'){
+                return $next($request);
+            }
+            else{
+                return redirect('/');
+            }
         }
     }
 }

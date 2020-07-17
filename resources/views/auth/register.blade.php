@@ -1,82 +1,86 @@
-@extends('layouts.app')
-
+@extends('layouts.main')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-                    <div class="form-group row">
-                       <div class="col-md-12">Name</div>
-                            <div class="col-md-12">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                        <div class="col-md-12">Email</div>
-
-                            <div class="col-md-12">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                        <div class="col-md-12">Password</div>
-                            <div class="col-md-12">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-12">Confirm Password</div>
-                            <div class="col-md-12">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <!--split 2 screen-->
+    <div class="parent-split">
+        <!--left-->
+        <div class="left-split">
+            <div class="left-text">Learn Anywhere, <br> Learn Everywhere</div>
+            <div class="float-img"> <img src="{{asset ('images/laptop.png')}}"/> </div>
         </div>
+        <!--right-->
+        <div class="right-split">
+
+
+ <!-- modal starts V2-->
+ <div class="auth-modal-container" id="create-account-div">
+    <div class="top-form-design">
+        <p class="side-word">Create an account</p>
     </div>
+
+    <!-- ALERT STARTS -->
+<!--DANGER-->
+<!--
+    <div class="alert alert-danger" role="alert">
+        Incorrect username and password
+     </div> -->
+    <!-- ALERT ENDS -->
+
+    <!-- login form starts -->
+    <form class="form" name="contact" method="POST" data-netlify="true" action="{{ route('register') }}" netlify>
+        @csrf
+        <div class="form-group-container">
+            <div class="form-group">
+                <label for="Full Name" class="form-label form-input-signup signup-label-username ">Full Name</label>
+                <div class="form-input">
+                    <input name="name" type="text" class="form-input-signup create-acc-input form-control-input create-username" id="name">
+                    <span id="create-acc-username-error-span"></span>
+                </div>
+              </div>
+        <div class="form-group">
+                <label for="email" class="form-label signup-label-email">Email</label>
+          <div class="form-input">
+            <input name="email" type="email" class="form-input-signup create-acc-input form-control-input create-email" id="email">
+            <span id="create-acc-email-error-span"></span>
+          </div>
+        </div>
+       
+        <div class="form-group">
+            <label for="password" class="form-label signup-label-password">Password</label>
+            <div class="form-input">
+                <input name="password" type="password" class="form-input-signup create-acc-input form-control-input create-password" id="password">
+                <span id="create-acc-password-error-span"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmpassword" class="form-label signup-label-password">Confirm Password</label>
+            <div class="form-input">
+                <input name="password_confirmation" type="password" class="form-input-signup create-acc-input form-control-input create-password" id="password-confirm">
+                <span id="create-acc-password-error-span"></span>
+            </div>
+          </div>
+          <!--end-->
+        </div>
+        <!-- <div class="orange-color small-text forgot-password-text"><a href="#">Forgot Password?</a></div> -->
+        <button class="btn-auth orange-color-bg" id="" type="submit">Create Account</button>
+    </form>
+    <!--This is not valid for Log-In-->
+   
+    <div class="small-text" style="margin: 6px; text-align: center;">
+      <p>By creating an account, I agree to University-X's <span class="blue-bg">Terms & Conditions,</span> and <span class="blue-bg">Community Guildlines, Privacy Policy</span></p>
+    </div>
+    <!--Gmail and Facebook Login-->
+    <div class="external-auth-container">
+        <p class="or-divider">OR</p>
+      <!-- second login auth ends -->
+      <a href="{{ route('facebookredirect') }}" class="btn-fb"><img src="../images/facebook icon.svg" alt="FB"> Register with Facebook</a>
+      <a href="{{ route('googleredirect') }}" class="btn-google"><img src="../images/google icon.svg" alt="google">Register with Google</a>
+    </div>
+<!-- modal ends -->
 </div>
 
-<form>
-    <div class="form-group row">
-        <div class="col-md-6 offset-md-4">
-             <a href="{{ url('/login/facebook') }}" class="btn btn-facebook"> Facebook</a>
-             <a href="{{ url('/login/google') }}" class="btn btn-google-plus"> Google</a>
-        </div>
+
+
     </div>
-    </form>
+    </div>
 @endsection

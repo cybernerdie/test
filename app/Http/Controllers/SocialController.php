@@ -9,7 +9,7 @@ use App\User;
 
 class SocialController extends Controller
 {
-    public function redirect($provider)
+    public function redirect($provider) 
     {
      return Socialite::driver($provider)->redirect();
     }
@@ -24,11 +24,12 @@ if($users){
 $user = User::create([
                 'name'          => $userSocial->getName(),
                 'email'         => $userSocial->getEmail(),
-                'image'         => $userSocial->getAvatar(),
                 'provider_id'   => $userSocial->getId(),
                 'provider'      => $provider,
             ]);
          return redirect()->route('home');
         }
 }
+
+
 }
