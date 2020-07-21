@@ -30,7 +30,7 @@ class LoginController extends Controller
      */
     protected function authenticated($request) {
         $user = Auth::user()->role;
-        if ($user=='student'){
+        if ($user =='student'){
             return redirect('/student/dashboard');
         }
         return redirect ('/lecturer/dashboard');

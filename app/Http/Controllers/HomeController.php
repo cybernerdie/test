@@ -43,13 +43,12 @@ class HomeController extends Controller
          
 
         $user = Auth::user();
-        $userRole = Auth::user()->role;
 
         $user->role = $request->role;
 
         $user->save();
 
-        if($userRole=='student'){
+        if($request->role =='student'){
             return redirect ('/student/dashboard');
         }
         else{

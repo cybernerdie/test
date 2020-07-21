@@ -20,24 +20,34 @@ class GoogleAuthController extends Controller
     }
 
     public function callback(){
-        $data = Socialite::driver('google')->stateless()->user();
-        $user = User::where('email', $data->email)->first();
-        if($user){
+      $data = Socialite::driver('google')->user();
+      $user = User::where('email', $data->email)->first();
+      if($user){
 
-          Auth::login($user);
-          return redirect('/verify')->with('success', 'Successfully logged in!');
-        }else{
+        Auth::loginUsingId($user->id);
 
-                           
-              $newuser = new User();
-              $newuser->name = $data->name;
-              $newuser->email = $data->email;
-              $newuser->password = uniqid(0,8);
-              $newuser->save();
-            
-              Auth::login($user);
-        return redirect('/verify')->with('success', 'Successfully logged in!');
-        }
+
+      	if (Auth::user()->role =='student'){
+          
+      	 return redirect('/student/dashboard');
+
+      	}
+      	return redirect('/lecturer/dashboard');
+     
+
+      }
+      else{
+
+                         
+        $newuser = new User();
+        $newuser->name = $data->name;
+        $newuser->email = $data->email;
+        $newuser->password = uniqid(0,8);
+        $newuser->save();
+      
+        Auth::loginUsingId($newuser->id);
+       return redirect('/verify')->with('success', 'Successfully logged in!');
+      }
     }
 }
 

@@ -31,30 +31,37 @@ class FacebookAuthController extends Controller
     $user = User::where('facebook_id', $data->id)->first();
 
     if($user) {
-    Auth::login($user);
-    
+   
+      Auth::loginUsingId($user->id);
+
+
+      if (Auth::user()->role =='student'){
+        return redirect('/student/dashboard');
+      }
+      return redirect('/lecturer/dashboard');
+         
     } 
 
     else {
-      $user = User::where('facebook_id', $data->id)->first();
+   
+     
+      // Create a new user
+      //if the facebookid of the facebookuser is empty create a new user with the below
+      $user = new User();
+      $user->name = $data->user['name'];
+      $user->email = is_null($data->email) || $data->email == ' ' ? '' : $data->email;
+      $user->password = uniqid(0,8);
+      $user->email = $email;
+      $user->facebook_id = $data->id;
+      $user->save();
 
-      if(!$user){
-        // Create a new user
-        //if the facebookid of the facebookuser is empty create a new user with the below
-        $user = new User();
-        $user->name = $data->user['name'];
-        $user->email = is_null($data->email) || $data->email == ' ' ? '' : $data->email;
-        $user->password = uniqid(0,8);
-        $user->email = $email;
-        $user->facebook_id = $data->id;
-        $user->save();
-      }
-
-      Auth::login($user);
+      Auth::loginUsingId($user->id);
+      return redirect('/verify')->with('success', 'Successfully logged in!');        
     }
 
-      return redirect('/verifyrole')->with('success', 'Successfully logged in!');
-    }
+  }  
+
+   
 }
 
-//f
+//f 
