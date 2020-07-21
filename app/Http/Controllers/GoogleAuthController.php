@@ -20,6 +20,7 @@ class GoogleAuthController extends Controller
     }
 
     public function callback(){
+<<<<<<< HEAD
       $data = Socialite::driver('google')->user();
       $user = User::where('email', $data->email)->first();
       if($user){
@@ -48,6 +49,27 @@ class GoogleAuthController extends Controller
         Auth::loginUsingId($newuser->id);
        return redirect('/verify')->with('success', 'Successfully logged in!');
       }
+=======
+        $data = Socialite::driver('google')->user();
+        $user = User::where('email', $data->email)->first();
+        if($user){
+
+          Auth::login($user);
+          return redirect('/verify')->with('success', 'Successfully logged in!');
+        }else{
+
+            if(!$user){
+                           
+              $user = new User();
+              $user->name = $data->name;
+              $user->email = $data->email;
+              $user->password = uniqid(0,8);
+              $user->save();
+            }
+              Auth::login($user);
+        }
+        return redirect('/verify')->with('success', 'Successfully logged in!');
+>>>>>>> prosper
     }
 }
 
